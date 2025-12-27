@@ -9,13 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
+    public function up(): void
+{
+    Schema::create('lokasi', function (Blueprint $table) {
+        $table->id('id_lokasi'); // Sesuai ERD kamu pakai id_lokasi
+        $table->string('nama_lokasi');
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_barang');
+        Schema::dropIfExists('lokasi');
     }
 };

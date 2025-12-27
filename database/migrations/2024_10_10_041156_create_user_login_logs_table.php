@@ -12,14 +12,14 @@ return new class extends Migration
     public function up()
 {
     Schema::create('user_login_logs', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('user_id');
-        $table->string('ip_address');
-        $table->string('user_agent');
-        $table->timestamp('login_time');
-        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        $table->timestamps();
-    });
+    $table->id();
+    // Relasi ke users
+    $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+    $table->string('ip_address');
+    $table->string('user_agent');
+    $table->timestamp('login_time');
+    $table->timestamps();
+});
 }
     /**
      * Reverse the migrations.

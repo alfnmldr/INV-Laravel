@@ -9,25 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
 {
-    Schema::create('users', function (Blueprint $table) {
+    Schema::create('sub_barang', function (Blueprint $table) {
     $table->id();
-    $table->string('username')->unique();
-    $table->string('password');
-    $table->enum('role', ['admin', 'manajer']);
+    // Relasi ke barang_masuk
+    $table->foreignId('kd_sub_barang')->constrained('barang_masuk')->onDelete('cascade');
+    // Relasi ke lokasi (karena pk-nya id_lokasi, harus ditulis manual)
+    $table->foreignId('id_lokasi')->constrained('lokasi', 'id_lokasi')->onDelete('cascade');
     $table->timestamps();
 });
-
 }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('sub_barang');
     }
 };
