@@ -104,7 +104,7 @@
         <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div class="h-full px-5 py-6 overflow-y-auto" style="background-color: #000000;">
             <a href="{{ route('index') }}" class="flex items-center ps-2.5 mb-5">
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><img src="{{asset('image/Adobe Express - file.png')}}" alt=""></span>
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><img src="{{asset('image/download__16_-removebg-preview.png')}}" alt=""></span>
             </a>
             <ul>
                     <button class="text-white bg-green-600/90 rounded-md hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 border-b-4 text-center w-full flex gap-4 border-gray-500 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -314,28 +314,47 @@
                                                             {{ ucfirst($item->status) }}
                                                         </td>
                                                         <td class="px-4 py-3 text-center flex gap-3 align-middle justify-center">
-                                                            <!-- Tombol Edit -->
-                                                            <a href="javascript:void(0);" 
-                                                                class="font-medium text-gray-600 hover:bg-yellow-500 transition-all dark:text-blue-500 hover:underline bg-yellow-300 p-3 rounded-md {{ $item->status != 'Revisi' && $item->status != 'Approved' ? 'opacity-50 cursor-not-allowed' : '' }}" 
-                                                                onclick="openEditModal({{ $item->id }}, '{{ $item->kode_barang }}', '{{ $item->nama_barang }}', '{{ $item->tgl_insert }}', '{{ $item->jumlah }}', '{{ $item->sumber }}', '{{ ucfirst($item->kondisi) }}', '{{ $item->id_lokasi }}')">
-                                                                <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
-                                                                </svg>
-                                                            </a>
-                                                            
-                                                            <!-- Tombol Hapus -->
-                                                            <form action="{{ route('barang.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus barang ini?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="font-medium text-white dark:text-blue-500 transition-all hover:underline bg-red-600 hover:bg-red-800 p-3 rounded-md {{ $item->status != 'Revisi' && $item->status != 'Approved' ? 'opacity-50 cursor-not-allowed' : '' }}">
-                                                                    <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                                                                    </svg>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
+                                                            <!-- Tombol Edit - FIX!-->
+                                                            @if(in_array($item->status, ['Approved', 'Revisi']))
+                                                                    <a href="javascript:void(0);" 
+                                                                    class="font-medium bg-yellow-300 hover:bg-yellow-500 p-3 rounded-md"
+                                                                    onclick="openEditModal(
+                                                                            {{ $item->id }},
+                                                                            '{{ $item->kode_barang }}',
+                                                                            '{{ $item->nama_barang }}',
+                                                                            '{{ $item->tgl_insert }}',
+                                                                            '{{ $item->jumlah }}',
+                                                                            '{{ $item->sumber }}',
+                                                                            '{{ ucfirst($item->kondisi) }}',
+                                                                            '{{ $item->id_lokasi }}'
+                                                                    )">
+                                                                        ✏️
+                                                                    </a>
+                                                                @else
+                                                                    <button class="bg-gray-400 p-3 rounded-md cursor-not-allowed opacity-50" disabled>
+                                                                        ✏️
+                                                                    </button>
+                                                                @endif
+
+                                                            <!-- Tombol Hapus -FIX!-->
+                                                                @if(in_array($item->status, ['Approved', 'Revisi']))
+                                                                    <form action="{{ route('barang.destroy', $item->id) }}" method="POST"
+                                                                        onsubmit="return confirm('Yakin hapus?');">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="bg-red-600 hover:bg-red-800 p-3 rounded-md text-white">
+                                                                            🗑️
+                                                                        </button>
+                                                                    </form>
+                                                                @else
+                                                                    <button class="bg-gray-400 p-3 rounded-md cursor-not-allowed opacity-50" disabled>
+                                                                        🗑️
+                                                                    </button>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
                                                     @endif
                                                 </tbody>
                                             </table>
