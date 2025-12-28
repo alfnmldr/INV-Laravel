@@ -27,7 +27,7 @@ class LoginController extends Controller
         // Jika user ditemukan dan password cocok
         if ($user && Hash::check($request->password, $user->password)) {
             // Login menggunakan ID user
-            Auth::loginUsingId($user->id_user);
+            Auth::loginUsingId($user->id);
 
             // Redirect berdasarkan role
             if ($user->role === 'admin') {
@@ -47,10 +47,11 @@ public function destroy(Request $request)
 
     // Simpan log aktivitas logout
     UserLog::create([
-        'id_user'   => $user->id_user,
-        'ip_address'=> $request->ip(),
-        'login_time'=> now(),
-    ]);
+    'user_id'    => $user->id,
+    'ip_address' => $request->ip(),
+    'login_time' => now(),
+]);
+
 
     // Logout user
     Auth::logout();

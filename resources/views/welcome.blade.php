@@ -27,7 +27,7 @@
     <div class="">
     <div class="p-16 rounded-xl mx-auto bg-white" style="width: 95%;">
         <h1 class="text-center font-poppins text-4xl font-semibold">Welcome Back!</h1>
-        <img src="{{ asset('image/da509c75-7411-4882-9c23-ee77089c6054.jpg') }}" alt="logo" class="mx-auto mt-6" style="width:200px;">
+        <img src="{{ asset('image/download__15_-removebg-preview.png') }}" alt="logo" class="mx-auto mt-6" style="width:200px;">
         
         <!-- Alert untuk menampilkan pesan kesalahan -->
         @if ($errors->any())

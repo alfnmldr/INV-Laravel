@@ -52,7 +52,7 @@
                     <div class="h-full px-5 py-6 overflow-y-auto dark:bg-gray-800" style="background-color: #000000; background-image:url(asset('image/peakpx.jpg'));">
                     <ul>
                         <a href="{{ route('redirect.user') }}" class="flex items-center ps-2.5 mb-5">
-                            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><img src="{{asset('image/da509c75-7411-4882-9c23-ee77089c6054-Photoroom.png')}}" alt=""></span>
+                            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><img src="{{asset('image/Adobe Express - file.png')}}" alt=""></span>
                         </a>
                         <li>
                                 <button class="text-white bg-green-600/90 rounded-md hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 border-b-4 text-center w-full flex gap-4 border-gray-500 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">

@@ -28,22 +28,36 @@ class AdminController extends Controller
         $startOfYear = Carbon::now()->subMonths(11)->startOfMonth(); 
         $endOfYear = Carbon::now()->endOfMonth();
 
-        $barangMasukPerBulan = BarangMasuk::selectRaw('MONTHNAME(created_at) as bulan, YEAR(created_at) as tahun, COUNT(*) as jumlah')
-            ->whereBetween('created_at', [$startOfYear, $endOfYear])
-            ->groupBy('bulan', 'tahun')
-            ->orderByRaw('YEAR(created_at), MONTH(created_at)')
-            ->get()
-            ->pluck('jumlah', 'bulan');
+        $barangMasukPerBulan = BarangMasuk::selectRaw('
+        YEAR(created_at) as tahun,
+        MONTH(created_at) as bulan_angka,
+        MONTHNAME(created_at) as bulan,
+        COUNT(*) as jumlah
+    ')
+    ->whereBetween('created_at', [$startOfYear, $endOfYear])
+    ->groupBy('tahun', 'bulan_angka', 'bulan')
+    ->orderBy('tahun')
+    ->orderBy('bulan_angka')
+    ->get();
+
 
  
         $labels = [];
         $data = [];
 
         for ($i = 0; $i < 12; $i++) {
-            $month = $startOfYear->copy()->addMonths($i)->format('F'); 
-            $labels[] = $month;
-            $data[] = $barangMasukPerBulan->get($month, 0);
-        }
+    $date = $startOfYear->copy()->addMonths($i);
+
+    $labels[] = $date->format('F'); // Nama bulan untuk chart
+    $bulanAngka = $date->month;     // 1–12
+
+    $jumlah = $barangMasukPerBulan
+        ->firstWhere('bulan_angka', $bulanAngka)
+        ->jumlah ?? 0;
+
+    $data[] = $jumlah;
+}
+
         return view('page.index', compact('dataList', 'labels', 'data', 'lokasi','barangMasuk', 'barang'));
     }
     

@@ -37,10 +37,11 @@ public function login(Request $request)
 
         // Menyimpan log login dengan alamat IP
         UserLog::create([
-            'id_user'   => $user->id_user,
-            'ip_address'=> $request->ip(),
-            'login_time'=> now(),
-        ]);
+    'user_id'   => $user->id,
+    'ip_address'=> $request->ip(),
+    'login_time'=> now(),
+]);
+
 
         // Redirect sesuai dengan role
         if ($user->role === 'admin') {

@@ -26,11 +26,6 @@ class User extends Authenticatable
     protected $table = 'users';
 
     // Tentukan primary key yang benar
-    protected $primaryKey = 'id_user';
-
-    // Atur primary key sebagai auto-incrementing integer
-    public $incrementing = true;
-    protected $keyType = 'int';
     public $timestamps = false;
 
     /**

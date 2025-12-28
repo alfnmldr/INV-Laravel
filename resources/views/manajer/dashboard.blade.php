@@ -68,7 +68,6 @@
         }
 
 
-
         ::-webkit-scrollbar {
             width: 10px;
             }
@@ -114,7 +113,7 @@
                     <div class="h-full px-5 py-6 overflow-y-auto" style="background-color: #000000;">
         <ul>
             <a href="{{ route('manajer.dashboard') }}" class="flex items-center ps-2.5 mb-5">
-                <span class="self-center text-xl font-semibold whitespace-nowrap text-white"><img src="{{ asset('image/da509c75-7411-4882-9c23-ee77089c6054-Photoroom.png') }}" alt=""></span>
+                <span class="self-center text-xl font-semibold whitespace-nowrap text-white"><img src="{{ asset('image/Adobe Express - file.png') }}" alt=""></span>
             </a>
             <li>
                 <button class="text-white bg-green-600/90 rounded-md hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 border-b-4 text-center w-full flex gap-4 border-gray-500" type="button">
@@ -565,7 +564,7 @@
                                                         <td class="py-2 px-4 border-b">{{ $user->username }}</td>
                                                         <td class="py-2 px-4 border-b">{{ $user->role }}</td>
                                                         <td class="py-2 px-4 border-b">
-                                                            <form action="{{ route('user.destroy', $user->id_user) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapusnya?');">
+                                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapusnya?');">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="text-white text-center bg-red-600 hover:bg-red-700 p-2 rounded-md">Delete</button>
